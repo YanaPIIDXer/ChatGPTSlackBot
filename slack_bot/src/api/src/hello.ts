@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
-import { openAiApi } from "../../modules/chatgpt/core";
+import { ChatGptBot } from "../../modules/chatgpt";
 
 /**
  * 挨拶API
@@ -8,13 +8,14 @@ import { openAiApi } from "../../modules/chatgpt/core";
  */
 export const helloHanlder = async (req: Request, res: Response) => {
   try {
-    const prompt = process.env.HELLO_MESSAGE ?? "環境変数が設定されていませんでした。";
-    const gptResponse = await openAiApi.createChatCompletion({
-      model: "gpt-3.5-turbo-0301",
-      messages: [{ role: "user", content: prompt }]
+    const bot = new ChatGptBot({
+      generatePrompt(userMessage: string): string {
+        return userMessage;
+      }
     });
-    
-    await say("bot実験コーナー", gptResponse.data.choices[0].message?.content || "INVALID RESPONSE");
+
+    const responseMessage = await bot.sendMessage(process.env.HELLO_MESSAGE ?? "環境変数が設定されていませんでした。");
+    await say("bot実験コーナー", responseMessage);
 
     res.status(200).json({
       body: {
