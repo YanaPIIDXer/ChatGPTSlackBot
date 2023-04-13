@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { say } from "../../modules/slack";
 import { ChatGptBot } from "../../modules/chatgpt";
 
+const channellName = "bot実験コーナー";
+
 /**
  * 挨拶API
  * 疎通確認用
@@ -15,7 +17,7 @@ export const helloHanlder = async (req: Request, res: Response) => {
     });
 
     const responseMessage = await bot.sendMessage(process.env.HELLO_MESSAGE ?? "環境変数が設定されていませんでした。");
-    await say("bot実験コーナー", responseMessage);
+    await say(channellName, responseMessage);
 
     res.status(200).json({
       body: {
