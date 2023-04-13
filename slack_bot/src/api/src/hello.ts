@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
-import { openAiApi } from "../../modules/chatgpt/";
+import { openAiApi } from "../../modules/chatgpt/core";
 
 /**
  * 挨拶API

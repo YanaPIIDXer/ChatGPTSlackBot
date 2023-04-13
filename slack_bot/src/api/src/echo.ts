@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
 import { SlackRecvEvent } from "../../modules/slack/types";
-import { openAiApi } from "../../modules/chatgpt/";
+import { openAiApi } from "../../modules/chatgpt/core";
 
 /**
  * エコーAPI
