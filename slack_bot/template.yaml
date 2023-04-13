@@ -8,6 +8,7 @@ Resources:
       CodeUri: ./src
       Handler: index.handler
       Runtime: nodejs14.x
+      Timeout: 180
       Events:
         Hello:
           Type: Api
@@ -23,6 +24,7 @@ Resources:
         Variables:
           HELLO_MESSAGE: Hello
           SLACK_TOKEN: Dummy
+          OPEN_AI_TOKEN: Dummy
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
