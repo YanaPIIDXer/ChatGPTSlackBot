@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import { say } from "../../modules/slack";
 import { SlackEvent } from "../../modules/slack/types";
 
+/**
+ * エコーAPI
+ * メンション貰ったらそのままオウム返し
+ */
 export const echoHandler = async (req: Request, res: Response) => {
   // チャレンジトークン処理
   if (req.body.type === "url_verification") {
