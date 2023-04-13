@@ -33,10 +33,16 @@ app.post("/echo", async (req: Request, res: Response) => {
     return;
   }
   
-  const message: string = req.body.event.text;
+  const originMessage: string = req.body.event.text;
   const channel: string = req.body.event.channel;
+  const thread = req.body.event.thread_ts || req.body.event.ts;
+  const user = req.body.event.user;
+
   try { 
-    await say(channel, message);
+    let message = originMessage.replace(/<@[A-Z0-9]+>/gi, "").trim();
+    await say(channel, message, {
+      thread, user,
+    });
 
     res.status(200).json({
       body: {
