@@ -1,0 +1,2 @@
+# ChatGPTSlackBot
+ChatGPTのSlack用Bot
