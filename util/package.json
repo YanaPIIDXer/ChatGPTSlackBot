@@ -2,10 +2,11 @@
   "name": "bot_utility",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist/*"
+    "clean": "rm -rf dist/*",
+    "upprompt": "tsc && node dist/upload_prompt.js"
   },
   "author": "",
   "license": "ISC",
