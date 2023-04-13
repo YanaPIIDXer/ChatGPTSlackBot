@@ -1,7 +1,9 @@
+import { webClient } from "../core";
+
 /**
- * Slackから投げられるイベント
+ * 受信した発言に関する情報
  */
- export class SlackEvent {
+ export class SlackRecvEvent {
   readonly originMessage: string;
   readonly channel: string;
   readonly threadId: string;

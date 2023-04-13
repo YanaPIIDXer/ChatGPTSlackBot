@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
-import { SlackEvent } from "../../modules/slack/types";
+import { SlackRecvEvent } from "../../modules/slack/types";
 
 /**
  * エコーAPI
@@ -13,11 +13,11 @@ export const echoHandler = async (req: Request, res: Response) => {
     return;
   }
   
-  const slackEvent = new SlackEvent(req.body.event);
+  const recvEvent = new SlackRecvEvent(req.body.event);
   try { 
-    await say(slackEvent.channel, slackEvent.message, {
-      thread: slackEvent.threadId,
-      user: slackEvent.senderId,
+    await say(recvEvent.channel, recvEvent.message, {
+      thread: recvEvent.threadId,
+      user: recvEvent.senderId,
     });
 
     res.status(200).json({

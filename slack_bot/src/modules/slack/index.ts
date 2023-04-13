@@ -1,7 +1,4 @@
-import { WebClient } from "@slack/web-api";
-
-const SLACK_API_TOKEN = process.env.SLACK_TOKEN;
-const web = new WebClient(SLACK_API_TOKEN);
+import { webClient } from "./core";
 
 /**
  * 発言のオプション
@@ -34,5 +31,5 @@ export const say = async (channel: string, message: string, options: SayOptions 
     }
   }
   
-  await web.chat.postMessage(postOption);
+  await webClient.chat.postMessage(postOption);
 };
