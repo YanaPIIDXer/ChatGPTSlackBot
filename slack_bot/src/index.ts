@@ -7,7 +7,7 @@ app.use(express.json());
 app.get("/hello", (req: Request, res: Response) => {
   res.status(200).json({
     body: {
-      message: "Hello",
+      message: process.env.HELLO_MESSAGE ?? "INVALID ENVIRONMENT VARIABLE",
     },
   });
 });

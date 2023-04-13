@@ -16,6 +16,9 @@ Resources:
           Properties:
             Path: /echo
             Method: POST
+      Environment:
+        Variables:
+          HELLO_MESSAGE: Hello
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
