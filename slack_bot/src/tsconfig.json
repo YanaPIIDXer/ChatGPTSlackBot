@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "es2020",
     "strict": true,
     "outDir": "./dist",
   }

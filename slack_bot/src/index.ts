@@ -1,5 +1,5 @@
 /**
  * EntryPoint
  */
-export const handler = () => {
+exports.handler = () => {
 };
