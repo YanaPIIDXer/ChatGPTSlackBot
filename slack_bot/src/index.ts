@@ -8,5 +8,6 @@ app.use(express.json());
 // APIハンドラ定義
 app.get("/hello", apiHandlers.helloHandler);
 app.post("/echo", apiHandlers.echoHandler);
+app.post("/mentor", apiHandlers.mentorHandler);
 
 exports.handler = serverlessExpress({ app });

@@ -1,0 +1,10 @@
+POST http://localhost:3000/mentor HTTP/1.1
+Content-Type: application/json
+
+{
+  "event": {
+    "channel": "bot実験コーナー",
+    "text": "Unityでプレイヤーを操作するComponentのサンプルを書いて欲しい。",
+    "user": "U01818G616Z"
+  }
+}

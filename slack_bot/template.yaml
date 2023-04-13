@@ -20,6 +20,11 @@ Resources:
           Properties:
             Path: /echo
             Method: POST
+        Mentor:
+          Type: Api
+          Properties:
+            Path: /mentor
+            Method: POST
       Environment:
         Variables:
           HELLO_MESSAGE: Hello
