@@ -27,16 +27,23 @@ app.get("/hello", async (req: Request, res: Response) => {
 });
 
 app.post("/echo", async (req: Request, res: Response) => {
-  const message: string = req.body.text;
-  const channel: string = req.body.channel_id;
+  // チャレンジトークン処理
+  if (req.body.type === "url_verification") {
+    res.send(req.body.challenge);
+    return;
+  }
+  
+  const message: string = req.body.event.text;
+  const channel: string = req.body.event.channel;
   try { 
-    await say(channel.replace("#", ""), message);
+    await say(channel, message);
 
     res.status(200).json({
       body: {
         message: "OK",
       },
     });
+    console.log(channel, message);
   } catch (error: any) {
     console.error("Slack API Error", error);
     res.status(500).json({

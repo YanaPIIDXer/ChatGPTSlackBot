@@ -1,6 +1,7 @@
-import axios from "axios";
+import { WebClient } from "@slack/web-api";
 
 const SLACK_API_TOKEN = process.env.SLACK_TOKEN;
+const web = new WebClient(SLACK_API_TOKEN);
 
 /**
  * 発言する
@@ -8,15 +9,8 @@ const SLACK_API_TOKEN = process.env.SLACK_TOKEN;
  * @param message メッセージ
  */
 export const say = async (channel: string, message: string) => {
-  const payload = {
-    channel: `#${channel}`,
+  await web.chat.postMessage({
+    channel: channel,
     text: message,
-  };
-  
-  await axios.post("https://slack.com/api/chat.postMessage", payload, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${SLACK_API_TOKEN}`,
-      },
   });
 };
