@@ -4,6 +4,7 @@ Content-Type: application/json
 {
   "event": {
     "channel": "test",
-    "text": "Echo Test"    
+    "text": "Echo Test",
+    "user": "U01818G616Z"
   }
 }

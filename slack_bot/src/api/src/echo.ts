@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
+import { SlackEvent } from "../../modules/slack/types";
 
 export const echoHandler = async (req: Request, res: Response) => {
   // チャレンジトークン処理
@@ -8,15 +9,11 @@ export const echoHandler = async (req: Request, res: Response) => {
     return;
   }
   
-  const originMessage: string = req.body.event.text;
-  const channel: string = req.body.event.channel;
-  const thread = req.body.event.thread_ts || req.body.event.ts;
-  const user = req.body.event.user;
-
+  const slackEvent = new SlackEvent(req.body.event);
   try { 
-    let message = originMessage.replace(/<@[A-Z0-9]+>/gi, "").trim();
-    await say(channel, message, {
-      thread, user,
+    await say(slackEvent.channel, slackEvent.message, {
+      thread: slackEvent.threadId,
+      user: slackEvent.senderId,
     });
 
     res.status(200).json({
@@ -24,7 +21,6 @@ export const echoHandler = async (req: Request, res: Response) => {
         message: "OK",
       },
     });
-    console.log(channel, message);
   } catch (error: any) {
     console.error("Slack API Error", error);
     res.status(500).json({
