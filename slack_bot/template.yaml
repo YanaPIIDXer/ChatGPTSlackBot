@@ -9,8 +9,8 @@ Resources:
         Echo:
           Type: Api
           Properties:
-            Path: /echo
-            Method: POST
+            Path: /hello
+            Method: GET
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
