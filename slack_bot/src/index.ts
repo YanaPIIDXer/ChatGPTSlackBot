@@ -26,13 +26,26 @@ app.get("/hello", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/echo", (req: Request, res: Response) => {
-  const message = req.body.message;
-  res.status(200).json({
-    body: {
-      message,
-    },
-  });
-})
+app.post("/echo", async (req: Request, res: Response) => {
+  const message: string = req.body.text;
+  const channel: string = req.body.channel_id;
+  try { 
+    await say(channel.replace("#", ""), message);
+
+    res.status(200).json({
+      body: {
+        message: "OK",
+      },
+    });
+  } catch (error: any) {
+    console.error("Slack API Error", error);
+    res.status(500).json({
+      body: {
+        message: "Slack API Error",
+        error,
+      }
+    });
+  }
+});
 
 exports.handler = serverlessExpress({ app });

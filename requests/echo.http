@@ -2,5 +2,6 @@ POST http://localhost:3000/echo HTTP/1.1
 Content-Type: application/json
 
 {
-  "message": "Echo Test"
+  "channel_id": "#test",
+  "text": "Echo Test"
 }
