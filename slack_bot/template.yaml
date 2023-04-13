@@ -1,0 +1,13 @@
+Resources:
+  SlackBotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Events:
+        Echo:
+          Type: Api
+          Properties:
+            Path: /echo
+            Method: POST

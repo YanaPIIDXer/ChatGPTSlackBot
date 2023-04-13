@@ -1,0 +1,14 @@
+{
+  "name": "slack_bot",
+  "version": "1.0.0",
+  "description": "Slack Bot",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  }
+}

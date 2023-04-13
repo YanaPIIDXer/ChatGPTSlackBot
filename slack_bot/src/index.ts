@@ -1,0 +1,5 @@
+/**
+ * EntryPoint
+ */
+export const handler = () => {
+};
