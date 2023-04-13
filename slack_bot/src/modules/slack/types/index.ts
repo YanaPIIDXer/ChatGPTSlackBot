@@ -10,6 +10,7 @@ import { webClient } from "../core";
   readonly threadId: string;
   readonly senderId: string;
   readonly message: string;
+  readonly isMyResponse: boolean;
   
   /**
    * コンストラクタ
@@ -21,6 +22,8 @@ import { webClient } from "../core";
     this.threadId = event.thread_ts || event.ts;
     this.senderId = event.user;
     this.message = this.originMessage.replace(/<@[A-Z0-9]+>/gi, "").trim();
+    // HACK: 元の送信者がメンションに含まれていたら「Botの発言」と見做す
+    this.isMyResponse = this.originMessage.includes(`<@${this.senderId}>`);
   }
 
   /**

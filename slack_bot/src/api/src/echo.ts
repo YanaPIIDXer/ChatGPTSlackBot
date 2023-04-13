@@ -16,17 +16,19 @@ export const echoHandler = async (req: Request, res: Response) => {
   
   const recvEvent = new SlackRecvEvent(req.body.event);
   try {
-    const bot = new ChatGptBot({
-      async generatePrompt(userMessage: string): Promise<string> {
-        return "以下を、英訳してオウム返ししてください。\n\n" + userMessage;
-      }
-    });
-
-    const responseMessage = await bot.sendMessage(recvEvent.message);
-    await say(recvEvent.channel, responseMessage, {
-      thread: recvEvent.threadId,
-      user: recvEvent.senderId,
-    });
+    if (!recvEvent.isMyResponse) {
+      const bot = new ChatGptBot({
+        async generatePrompt(userMessage: string): Promise<string> {
+          return "以下を、英訳してオウム返ししてください。\n\n" + userMessage;
+        }
+      });
+  
+      const responseMessage = await bot.sendMessage(recvEvent.message);
+      await say(recvEvent.channel, responseMessage, {
+        thread: recvEvent.threadId,
+        user: recvEvent.senderId,
+      });  
+    }
 
     res.status(200).json({
       body: {
