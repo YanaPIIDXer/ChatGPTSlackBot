@@ -1,4 +1,5 @@
 import type { IPromptGenerator } from "..";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 
 /**
  * メンターBot用コンテキスト管理
@@ -8,8 +9,20 @@ export class MentorContexts implements IPromptGenerator {
    * プロンプト生成
    * @param userMessage ユーザの入力
    */
-  generatePrompt(userMessage: string): string {
-    // TODO: 外部ファイルからプロンプトを読み込んで構築する
-    return userMessage;
+  async generatePrompt(userMessage: string): Promise<string> {
+    const client = new S3Client({});
+    let message = userMessage;
+    try {
+      const result = await client.send(new GetObjectCommand({
+        Bucket: "slack-bot-utility",
+        Key: "prompt.md",
+      }));
+      const prompt = await result.Body?.transformToString() ?? "";
+      message = prompt.replace("[[USER_MESSAGE]]", userMessage);
+    } catch (error) {
+      console.error("Fetch Prompt Failed.", error);
+    }
+    console.log(message);
+    return message;
   }
 }

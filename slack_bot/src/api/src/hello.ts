@@ -9,7 +9,7 @@ import { ChatGptBot } from "../../modules/chatgpt";
 export const helloHanlder = async (req: Request, res: Response) => {
   try {
     const bot = new ChatGptBot({
-      generatePrompt(userMessage: string): string {
+      async generatePrompt(userMessage: string): Promise<string> {
         return userMessage;
       }
     });

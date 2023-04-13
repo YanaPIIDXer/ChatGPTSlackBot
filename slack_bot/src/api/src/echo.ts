@@ -17,7 +17,7 @@ export const echoHandler = async (req: Request, res: Response) => {
   const recvEvent = new SlackRecvEvent(req.body.event);
   try {
     const bot = new ChatGptBot({
-      generatePrompt(userMessage: string): string {
+      async generatePrompt(userMessage: string): Promise<string> {
         return "以下を、英訳してオウム返ししてください。\n\n" + userMessage;
       }
     });

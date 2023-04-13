@@ -27,7 +27,7 @@ export class ChatGptBot {
    * @returns レスポンス
    */
   async sendMessage(message: string): Promise<string> {
-    const prompt = this.promptGenerator.generatePrompt(message);
+    const prompt = await this.promptGenerator.generatePrompt(message);
 
     // TODO: コンテキスト管理の実装
     const messages: ChatCompletionRequestMessage[] = [];
@@ -51,5 +51,5 @@ export interface IPromptGenerator {
    * @param userMessage ユーザの入力
    * @returns プロンプト
    */
-  generatePrompt(userMessage: string): string
+  generatePrompt(userMessage: string): Promise<string>
 }
