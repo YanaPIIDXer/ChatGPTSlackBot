@@ -19,6 +19,7 @@ Resources:
       Environment:
         Variables:
           HELLO_MESSAGE: Hello
+          SLACK_TOKEN: Dummy
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
