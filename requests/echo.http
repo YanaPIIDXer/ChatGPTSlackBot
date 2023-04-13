@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
   "event": {
-    "channel": "test",
-    "text": "Echo Test",
+    "channel": "bot実験コーナー",
+    "text": "ChatGPTって何？",
     "user": "U01818G616Z"
   }
 }

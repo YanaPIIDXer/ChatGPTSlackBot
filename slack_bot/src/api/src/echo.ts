@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
 import { SlackRecvEvent } from "../../modules/slack/types";
+import { openAiApi } from "../../modules/chatgpt/";
 
 /**
  * エコーAPI
@@ -15,7 +16,13 @@ export const echoHandler = async (req: Request, res: Response) => {
   
   const recvEvent = new SlackRecvEvent(req.body.event);
   try { 
-    await say(recvEvent.channel, recvEvent.message, {
+    const prompt = "以下を、英訳してオウム返ししてください。\n\n" + recvEvent.message;
+    const chatGptResponse = await openAiApi.createChatCompletion({
+      model: "gpt-3.5-turbo-0301",
+      messages: [{ role: "user", content: prompt }],
+    });
+    
+    await say(recvEvent.channel, chatGptResponse.data.choices[0].message?.content ?? "Invalid Message", {
       thread: recvEvent.threadId,
       user: recvEvent.senderId,
     });

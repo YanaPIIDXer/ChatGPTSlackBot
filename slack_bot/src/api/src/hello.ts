@@ -1,12 +1,6 @@
 import { Request, Response } from "express";
 import { say } from "../../modules/slack";
-
-// TODO: 別モジュールに移動する
-import { Configuration, OpenAIApi } from "openai";
-const configuration = new Configuration({
-  apiKey: process.env.OPEN_AI_TOKEN,
-});
-const openAiApi = new OpenAIApi(configuration);
+import { openAiApi } from "../../modules/chatgpt/";
 
 /**
  * 挨拶API
