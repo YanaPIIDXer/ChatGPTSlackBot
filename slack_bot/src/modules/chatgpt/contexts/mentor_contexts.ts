@@ -22,7 +22,6 @@ export class MentorContexts implements IPromptGenerator {
     } catch (error) {
       console.error("Fetch Prompt Failed.", error);
     }
-    console.log(message);
     return message;
   }
 }
