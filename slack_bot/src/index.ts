@@ -5,12 +5,13 @@ import * as apiHandlers from "./api";
 const app = express();
 app.use(express.json());
 
-// リクエスト・レスポンスログ出力
+// 再送は問答無用で終了
 app.use((req: Request, res: Response, next: Function) => {
-  console.log("RECV REQUEST", req.body);
-  res.on("finish", () => {
-    console.log("SEND RESPONSE", `${req.method} ${req.url} ${res.statusCode} ${res.statusMessage}`);
-  });
+  if (req.get("X-Slack-Retry-Num")) {
+    res.status(200);
+    return;
+  }
+  
   next();
 });
 

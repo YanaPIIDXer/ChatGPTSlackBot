@@ -1,0 +1,11 @@
+POST http://localhost:3000/mentor HTTP/1.1
+Content-Type: application/json
+X-Slack-Retry-Num: 1
+
+{
+  "event": {
+    "channel": "bot実験コーナー",
+    "text": "Unityでプレイヤーを操作するComponentのサンプルを書いて欲しい。",
+    "user": "U01818G616Z"
+  }
+}

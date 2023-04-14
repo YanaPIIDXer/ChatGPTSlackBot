@@ -16,14 +16,12 @@ export const mentorHandler = async (req: Request, res: Response) => {
 
   const recvEvent = new SlackRecvEvent(req.body.event);
   try {
-    if (!recvEvent.isMyResponse) {
-      const bot = new ChatGptBot(new MentorContexts());
-      const responseMessage = await bot.sendMessage(recvEvent.message);
-      await say(recvEvent.channel, responseMessage, {
-        thread: recvEvent.threadId,
-        user: recvEvent.senderId,
-      });  
-    }
+    const bot = new ChatGptBot(new MentorContexts());
+    const responseMessage = await bot.sendMessage(recvEvent.message);
+    await say(recvEvent.channel, responseMessage, {
+      thread: recvEvent.threadId,
+      user: recvEvent.senderId,
+    });
 
     res.status(200).json({
       body: {
