@@ -19,7 +19,9 @@ export const mentorHandler = async (req: Request, res: Response) => {
     const channelInfo = await recvEvent.fetchChannelInfo();
     const bot = new ChatGptBot(new MentorContexts(), channelInfo.channel?.topic?.value ?? "");
     const threadMessages = await recvEvent.fetchThreadMessages();
-    threadMessages.forEach(m => {
+    threadMessages.forEach((m, i) => {
+      // 一番最後にあるのは自分の発言
+      if (i === threadMessages.length - 1) { return; }
       bot.addContext(!m.bot_id, m.text ?? "Invalid Message");
     })
     const responseMessage = await bot.sendMessage(recvEvent.message);

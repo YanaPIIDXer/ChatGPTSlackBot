@@ -10,6 +10,8 @@ export class MentorContexts implements IPromptGenerator {
    * @param userMessage ユーザの入力
    */
   async generatePrompt(userMessage: string): Promise<string> {
+    // 一旦封印
+    /*
     const client = new S3Client({});
     let message = userMessage;
     try {
@@ -23,5 +25,7 @@ export class MentorContexts implements IPromptGenerator {
       console.error("Fetch Prompt Failed.", error);
     }
     return message;
+    */
+    return userMessage;
   }
 }

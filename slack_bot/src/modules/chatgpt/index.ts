@@ -35,7 +35,7 @@ export class ChatGptBot {
   addContext (isUser: boolean, content: string) {
     this.contexts.push({
       role: isUser ? "user" : "assistant",
-      content,
+      content: content.replace(/<@[A-Z0-9]+>/gi, "").trim(),
     });
   }
 
