@@ -1,4 +1,5 @@
 import { ConversationsInfoResponse } from "@slack/web-api";
+import { Message } from "@slack/web-api/dist/response/ConversationsRepliesResponse";
 import { webClient } from "../core";
 
 /**
@@ -33,5 +34,14 @@ import { webClient } from "../core";
   async fetchChannelInfo (): Promise<ConversationsInfoResponse> {
     const info = await webClient.conversations.info({ channel: this.channel });
     return info;
+  }
+
+  /**
+   * スレッドの発言リスト取得
+   * @returns スレッドの発言リスト
+   */
+  async fetchThreadMessages (): Promise<Message[]> {
+    const info = await webClient.conversations.replies({ channel: this.channel, ts: this.threadId })
+    return info.messages ?? [];
   }
 };

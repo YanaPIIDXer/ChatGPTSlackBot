@@ -8,6 +8,7 @@ const GPT_MODEL = "gpt-3.5-turbo-0301";
 export class ChatGptBot {
   private api: OpenAIApi;
   private promptGenerator: IPromptGenerator;
+  private contexts: ChatCompletionRequestMessage[];
 
   /**
    * コンストラクタ
@@ -18,7 +19,20 @@ export class ChatGptBot {
       apiKey: process.env.OPEN_AI_TOKEN,
     });
     this.api = new OpenAIApi(configuration);
+    this.contexts = [];
     this.promptGenerator = promptGenerator;
+  }
+
+  /**
+   * コンテキスト追加
+   * @param isUser ユーザの発言か？
+   * @param content 内容
+   */
+  addContext (isUser: boolean, content: string) {
+    this.contexts.push({
+      role: isUser ? "user" : "assistant",
+      content,
+    });
   }
 
   /**
@@ -29,8 +43,7 @@ export class ChatGptBot {
   async sendMessage(message: string): Promise<string> {
     const prompt = await this.promptGenerator.generatePrompt(message);
 
-    // TODO: コンテキスト管理の実装
-    const messages: ChatCompletionRequestMessage[] = [];
+    const messages: ChatCompletionRequestMessage[] = [...this.contexts];
     messages.push({ role: "user", content: prompt });
     
     const response = await this.api.createChatCompletion({

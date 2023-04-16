@@ -17,6 +17,10 @@ export const mentorHandler = async (req: Request, res: Response) => {
   const recvEvent = new SlackRecvEvent(req.body.event);
   try {
     const bot = new ChatGptBot(new MentorContexts());
+    const threadMessages = await recvEvent.fetchThreadMessages();
+    threadMessages.forEach(m => {
+      bot.addContext(!m.bot_id, m.text ?? "Invalid Message");
+    })
     const responseMessage = await bot.sendMessage(recvEvent.message);
     await say(recvEvent.channel, responseMessage, {
       thread: recvEvent.threadId,
