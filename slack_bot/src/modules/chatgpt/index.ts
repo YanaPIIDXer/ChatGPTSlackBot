@@ -1,6 +1,6 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
-const GPT_MODEL = "gpt-3.5-turbo-0301";
+const GPT_MODEL = "gpt-3.5-turbo";
 
 /**
  * ChatGPTを使ったBotを実現するクラス
