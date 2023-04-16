@@ -9,6 +9,7 @@ export class ChatGptBot {
   private api: OpenAIApi;
   private promptGenerator: IPromptGenerator;
   private contexts: ChatCompletionRequestMessage[];
+  private chatContext: string;
 
   /**
    * コンストラクタ
@@ -21,9 +22,7 @@ export class ChatGptBot {
     });
     this.api = new OpenAIApi(configuration);
     this.contexts = [];
-    if (chatContext) {
-      this.contexts.push({ role: "system", content: chatContext });
-    }
+    this.chatContext = chatContext;
     this.promptGenerator = promptGenerator;
   }
 
@@ -48,6 +47,9 @@ export class ChatGptBot {
     const prompt = await this.promptGenerator.generatePrompt(message);
 
     const messages: ChatCompletionRequestMessage[] = [...this.contexts];
+    if (this.chatContext) {
+      messages.push({ role: "system", content: this.chatContext });
+    }
     messages.push({ role: "user", content: prompt });
     
     const response = await this.api.createChatCompletion({
