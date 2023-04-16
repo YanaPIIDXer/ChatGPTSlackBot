@@ -13,13 +13,17 @@ export class ChatGptBot {
   /**
    * コンストラクタ
    * @param promptGenerator プロンプト生成インタフェース実装オブジェクト
+   * @param chatContext チャットで会話する上でのコンテキスト
    */
-  constructor (promptGenerator: IPromptGenerator) {
+  constructor (promptGenerator: IPromptGenerator, chatContext: string = "") {
     const configuration = new Configuration({
       apiKey: process.env.OPEN_AI_TOKEN,
     });
     this.api = new OpenAIApi(configuration);
     this.contexts = [];
+    if (chatContext) {
+      this.contexts.push({ role: "system", content: chatContext });
+    }
     this.promptGenerator = promptGenerator;
   }
 
